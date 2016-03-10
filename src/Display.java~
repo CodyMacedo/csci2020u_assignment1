@@ -23,7 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Graphics demo");
+        primaryStage.setTitle("Spam Master 3000");
         
         /* create the table (for the center of the user interface) */
         table = new TableView<>();
