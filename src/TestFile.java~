@@ -1,3 +1,17 @@
+/*
+ * TestFile
+ *
+ * This class is used to organize the probability data that the calculation 
+ * class spits out as well as the items used in the collection that goes into 
+ * the ui
+ * 
+ * @author	CodyMacedo	Omar Khan
+ * @id		100486136	100523629
+ * @date	March 10, 2016
+ *
+ */
+
+
 import java.text.DecimalFormat;
 
 public class TestFile {

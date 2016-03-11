@@ -30,7 +30,6 @@ import javafx.event.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
 import javafx.stage.DirectoryChooser;
-//initialized the libraries needed
 
 
 public class Display extends Application {
@@ -51,7 +50,7 @@ public class Display extends Application {
         
         /* create the table (for the center of the user interface) */
         DataSource dataSource = new DataSource();
-        dataSource.
+        dataSource.calculateData(mainDirectory);
         table = new TableView<>();
         table.setItems(dataSource.getData());
         table.setEditable(false);

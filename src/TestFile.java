@@ -20,9 +20,9 @@ public class TestFile {
 	private String actualClass;
 	
 	public TestFile(String filename, double spamProbability, String actualClass) {
-		this.filename = filename; //keeps tabs on the name of the file
-		this.spamProbability = spamProbability; //the probability of a spam file
-		this.actualClass = actualClass; //class in question
+		this.filename = filename;
+		this.spamProbability = spamProbability;
+		this.actualClass = actualClass;
 	}
 	
 	public String getFilename() {
@@ -34,7 +34,7 @@ public class TestFile {
 	}
 	
 	public String getSpamProbRounded() {
-		DecimalFormat df = new DecimalFormat("0.00000");//defining format for a decimal number
+		DecimalFormat df = new DecimalFormat("0.00000");
 		return df.format(this.spamProbability);
 	}
 	

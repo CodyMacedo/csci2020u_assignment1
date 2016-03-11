@@ -18,6 +18,5 @@ public class SpamMaster3000{
 	public static void main(String[] args) {
 		Display display = new Display();
 		display.launchDisplay();
-		//initializing the display features
 	}
 }
