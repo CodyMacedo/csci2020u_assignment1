@@ -1,3 +1,17 @@
+/*
+ * TestFile
+ *
+ * This class is used to organize the probability data that the calculation 
+ * class spits out as well as the items used in the collection that goes into 
+ * the ui
+ * 
+ * @author	CodyMacedo	Omar Khan
+ * @id		100486136	100523629
+ * @date	March 10, 2016
+ *
+ */
+
+
 import java.text.DecimalFormat;
 
 public class TestFile {
@@ -6,9 +20,9 @@ public class TestFile {
 	private String actualClass;
 	
 	public TestFile(String filename, double spamProbability, String actualClass) {
-		this.filename = filename;
-		this.spamProbability = spamProbability;
-		this.actualClass = actualClass;
+		this.filename = filename; //keeps tabs on the name of the file
+		this.spamProbability = spamProbability; //the probability of a spam file
+		this.actualClass = actualClass; //class in question
 	}
 	
 	public String getFilename() {
@@ -20,7 +34,7 @@ public class TestFile {
 	}
 	
 	public String getSpamProbRounded() {
-		DecimalFormat df = new DecimalFormat("0.00000");
+		DecimalFormat df = new DecimalFormat("0.00000");//defining format for a decimal number
 		return df.format(this.spamProbability);
 	}
 	

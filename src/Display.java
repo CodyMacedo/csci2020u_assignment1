@@ -1,3 +1,17 @@
+/*
+ * Display
+ *
+ * This class uses Javafx to render a ui table among other fields that will
+ * display the data for the other classes in this project
+ * Additionally, this class is also used to prompt the user for folder selection
+ * at the beginning of the program
+ * 
+ * @author	CodyMacedo	Omar Khan
+ * @id		100486136	100523629
+ * @date	March 10, 2016
+ *
+ */
+
 import java.io.*;
 import java.util.*;
 
@@ -16,22 +30,32 @@ import javafx.event.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
 import javafx.stage.DirectoryChooser;
+//initialized the libraries needed
 
 
-public class Main extends Application {
-    @FXML private Canvas canvas;
+public class Display extends Application {
+    public Stage window;
+    private BorderPane layout;
+    private TableView<TestFile> table;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Spam Master 3000");
         
+        
+        /* get file from user with gui prompt */
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+   		directoryChooser.setInitialDirectory(new File("."));
+   		File mainDirectory = directoryChooser.showDialog(primaryStage);
+        
+        
         /* create the table (for the center of the user interface) */
+        DataSource dataSource = new DataSource();
+        dataSource.
         table = new TableView<>();
-        //		|
-        //		|	Need to fix
-        //		V
-        table.setItems(DataSource.getAllMarks());
+        table.setItems(dataSource.getData());
         table.setEditable(false);
+
 
         /* create the table's columns */
         TableColumn<TestFile,String> filenameColumn = null;
@@ -68,7 +92,7 @@ public class Main extends Application {
 
         Label precisionLabel = new Label("Precision:");
         displayArea.add(precisionLabel, 0, 1);
-        TextField midtermField = new TextField();
+        TextField precisionField = new TextField();
         precisionField.setEditable(false);
         displayArea.add(precisionField, 1, 1);
         
@@ -82,10 +106,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    public File chooseDir() {
-   		DirectoryChooser directoryChooser = new DirectoryChooser();
-   		directoryChooser.setInitialDirectory(new File("."));
-   		return directoryChooser.showDialog(primaryStage); 
+    
+    public void launchDisplay(){
+    	launch();
     }
 }
