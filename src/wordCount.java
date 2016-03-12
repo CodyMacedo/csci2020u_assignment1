@@ -18,27 +18,23 @@ public class wordCount {
     }
     
     public void processFolder(File file) throws IOException {
-    	int countHam = 0;
-    	int countSpam = 0;
     	File[] filesInDir = file.listFiles();
     	for (int i = 0; i < filesInDir.length; i++) {
 			if (filesInDir[i].getName().contains("ham")) {
-				countHam++;
 				File[] moreFiles = filesInDir[i].listFiles();
     			for (int q = 0; q < moreFiles.length; q++) {
-					processFile(moreFiles[q], "ham", countHam);
+					processFile(moreFiles[q], "ham");
 				}
     		} else if (filesInDir[i].getName().contains("spam")) {
-    			countSpam++;
     			File[] moreFiles = filesInDir[i].listFiles();
     			for (int q = 0; q < moreFiles.length; q++) {
-    				processFile(moreFiles[q], "spam", countSpam);
+    				processFile(moreFiles[q], "spam");
     			}
     		}
     	}
     }
     
-    public void processFile(File file, String type, int count) throws IOException {
+    public void processFile(File file, String type) throws IOException {
         if (file.exists()) {
             // load all of the data, and process it into words
             if (type.equals("ham")) {
@@ -46,35 +42,32 @@ public class wordCount {
 		    } else if (type.equals("spam")) {
 		        spamNum++;
 		    }
+		    Map<String,Integer> thisFile = new TreeMap<>();
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String word = scanner.next();
                 if (isWord(word)) {
-                    countWord(word, type, count);
+                	if (!(thisFile.containsKey(word))) {
+                		thisFile.put(word, 1);
+
+		            	if (trainHamFreq.containsKey(word) && type.equals("ham")) {
+		            		trainHamFreq.put(word, trainHamFreq.get(word) + 1);
+		            	} else if (trainSpamFreq.containsKey(word) && type.equals("spam")) {
+		            		trainSpamFreq.put(word, trainSpamFreq.get(word) + 1);
+		                } else {
+		                	setWord(word, type);
+		                }
+		            }
                 }
             }
         }
     }
     
-    private void countWord(String word, String type, int count) throws IOException{
+    private void setWord(String word, String type) throws IOException{
         if (type.equals("ham")) {
-			if (trainHamFreq.containsKey(word)) {
-            	int oldCount = trainHamFreq.get(word);
-            	if (oldCount < count) {	
-            		trainHamFreq.put(word, oldCount + 1);
-            	}
-        	} else {
-        	    trainHamFreq.put(word, 1);
-       		}
+        	trainHamFreq.put(word, 1);
 		} else if (type.equals("spam")) {
-			if (trainSpamFreq.containsKey(word)) {
-            	int oldCount = trainSpamFreq.get(word);
-            	if (oldCount < count) {	
-            		trainSpamFreq.put(word, oldCount + 1);
-            	}
-        	} else {
-        	    trainSpamFreq.put(word, 1);
-       		}
+        	trainSpamFreq.put(word, 1);
 		}
     }
     
@@ -94,9 +87,9 @@ public class wordCount {
     	double PrS = 0.0;
     	double PrW = 0.0;
     	for (int i = 0; i < trainSpamFreq.size(); i++) {
-    		PrS = trainSpamFreq.get(arr[i]) / spamNum;
+    		PrS = (double)trainSpamFreq.get(arr[i]) / spamNum;
     		if (trainHamFreq.containsKey(arr[i])){
-    			PrH = trainHamFreq.get(arr[i]) / hamNum;
+    			PrH = (double)trainHamFreq.get(arr[i]) / hamNum;
     		} else {
     			PrH = 0;
     		}
@@ -114,14 +107,12 @@ public class wordCount {
             // load all of the data, and process it into words
             Scanner scanner = new Scanner(file);
             
-            
-            
             while (scanner.hasNext()) {
                 String word = scanner.next();
                 if (isWord(word)) {
                     if (spamProb.containsKey(word)) {
                     	n = n + (Math.log(1 - spamProb.get(word)) - Math.log(spamProb.get(word)));
-                	} 
+                	}
                 }
             }
             

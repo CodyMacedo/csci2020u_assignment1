@@ -46,8 +46,7 @@ public class Display extends Application {
         DirectoryChooser directoryChooser = new DirectoryChooser();
    		directoryChooser.setInitialDirectory(new File("."));
    		File mainDirectory = directoryChooser.showDialog(primaryStage);
-        
-        
+  
         /* create the table (for the center of the user interface) */
         DataSource dataSource = new DataSource();
         dataSource.calculateData(mainDirectory);
@@ -67,7 +66,7 @@ public class Display extends Application {
         actualClassColumn.setMinWidth(150);
         actualClassColumn.setCellValueFactory(new PropertyValueFactory<>("actualClass"));
 
-        TableColumn<TestFile,Double> spamProbColumn = null;
+        TableColumn<TestFile,String> spamProbColumn = null;
         spamProbColumn = new TableColumn<>("Spam Probablity");
         spamProbColumn.setMinWidth(300);
         spamProbColumn.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
@@ -85,13 +84,13 @@ public class Display extends Application {
 
         Label accuracyLabel = new Label("Accuracy:");
         displayArea.add(accuracyLabel, 0, 0);
-        TextField accuracyField = new TextField();
+        TextField accuracyField = new TextField(dataSource.getAccuracy());
        	accuracyField.setEditable(false);
         displayArea.add(accuracyField, 1, 0);
 
         Label precisionLabel = new Label("Precision:");
         displayArea.add(precisionLabel, 0, 1);
-        TextField precisionField = new TextField();
+        TextField precisionField = new TextField(dataSource.getPrecision());
         precisionField.setEditable(false);
         displayArea.add(precisionField, 1, 1);
         
